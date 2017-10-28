@@ -11,13 +11,13 @@ using Xunit;
 
 namespace CibertecSchool.WebApi.Test
 {
-    public class PersonControllerMoqTest
+    public class PersonControllerTest
     {
         private PersonController _personController;
 
         private readonly IUnitOfWork _unitMocked;
 
-        public PersonControllerMoqTest()
+        public PersonControllerTest()
         {
             var unitMocked = new UnitOfWorkMocked();
             _unitMocked = unitMocked.GetInstante();
