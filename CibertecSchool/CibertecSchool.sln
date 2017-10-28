@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{7C841278-E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CibertecSchool.WebApi.Test", "CibertecSchool.WebApi.Test\CibertecSchool.WebApi.Test.csproj", "{89F6AD2F-C80F-4668-9CF0-22DB2F819E96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CibertecSchool.MoqTest", "CibertecSchool.MoqTest\CibertecSchool.MoqTest.csproj", "{B70E0494-B625-4CC0-BC83-BB5C8E82FC04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{89F6AD2F-C80F-4668-9CF0-22DB2F819E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89F6AD2F-C80F-4668-9CF0-22DB2F819E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89F6AD2F-C80F-4668-9CF0-22DB2F819E96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B70E0494-B625-4CC0-BC83-BB5C8E82FC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B70E0494-B625-4CC0-BC83-BB5C8E82FC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B70E0494-B625-4CC0-BC83-BB5C8E82FC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B70E0494-B625-4CC0-BC83-BB5C8E82FC04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{3ED5179B-75AB-41CD-AD8D-943031F507CE} = {A5C83005-96AF-4AE1-804B-3577D8328647}
 		{BB657CF4-0A2F-4074-A4A6-DD24D1A4A760} = {6161226C-B410-4799-AA69-905BD7D13FA9}
 		{89F6AD2F-C80F-4668-9CF0-22DB2F819E96} = {7C841278-EB9F-4809-BB0F-9383A80F7555}
+		{B70E0494-B625-4CC0-BC83-BB5C8E82FC04} = {7C841278-EB9F-4809-BB0F-9383A80F7555}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20432B03-3F86-4590-9DDA-FFA7EF6792D4}
