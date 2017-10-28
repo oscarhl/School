@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="3.51.0" />
+    <PackageReference Include="Moq" Version="4.7.142" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CibertecSchool.Models\CibertecSchool.Models.csproj" />
+    <ProjectReference Include="..\CibertecSchool.UnitOfWork\CibertecSchool.UnitOfWork.csproj" />
+  </ItemGroup>
+
 </Project>
