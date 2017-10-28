@@ -1,4 +1,5 @@
 using CibertecSchool.Models;
+using CibertecSchool.MoqTest;
 using CibertecSchool.Repositories.Dapper.School;
 using CibertecSchool.UnitOfWork;
 using CibertecSchool.WebApi.Controllers;
@@ -18,9 +19,9 @@ namespace CibertecSchool.WebApi.Test
 
         public DepartmentControllerTest()
         {
-            _departmentController = new DepartmentController(
-                new SchoolUnitOfWork(ConfigSettings.SchoolConnectionString)
-                );
+            var unitMocked = new UnitOfWorkMocked();
+            _unitMocked = unitMocked.GetInstante();
+            _departmentController = new DepartmentController(_unitMocked);
         }
 
         [Fact(DisplayName = "[DepartmentController] Get List")]
@@ -40,7 +41,7 @@ namespace CibertecSchool.WebApi.Test
         {
             var department = new Department
             {
-                DepartmentID=10,
+                DepartmentID=30,
                 Name="Finanzas",
                 Budget=60000,
                 StartDate=DateTime.Now.Date,
@@ -51,6 +52,8 @@ namespace CibertecSchool.WebApi.Test
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
 
+            var model = Convert.ToInt32(result.Value);
+            model.Should().Be(30);
 
         }
 
@@ -59,7 +62,7 @@ namespace CibertecSchool.WebApi.Test
         {
             var department = new Department
             {
-                DepartmentID = 2,
+                DepartmentID = 5,
                 Name = "Operaciones",
                 Budget = 70000,
                 StartDate = DateTime.Now.Date,
@@ -70,6 +73,16 @@ namespace CibertecSchool.WebApi.Test
 
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
+
+           
+            var currentDepartment = _unitMocked.Departments.GetById(5);
+            currentDepartment.Should().NotBeNull();
+            currentDepartment.DepartmentID.Should().Be(department.DepartmentID);
+            currentDepartment.Name.Should().Be(department.Name);
+            currentDepartment.Budget.Should().Be(department.Budget);
+            currentDepartment.StartDate.Should().Be(department.StartDate);
+            currentDepartment.Administrator.Should().Be(department.Administrator);
+
 
         }
 
@@ -85,6 +98,12 @@ namespace CibertecSchool.WebApi.Test
 
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
+
+            var model = Convert.ToBoolean(result.Value);
+            model.Should().BeTrue();
+
+            var currentDepartment = _unitMocked.Departments.GetById(4);
+            currentDepartment.Should().BeNull();
         }
 
         [Fact(DisplayName = "[DepartmentController] Get By Id")]
@@ -94,6 +113,10 @@ namespace CibertecSchool.WebApi.Test
 
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
+
+            var model = result.Value as Department;
+            model.Should().NotBeNull();
+            model.DepartmentID.Should().BeGreaterThan(0);
         }
     }
 }

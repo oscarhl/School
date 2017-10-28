@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CibertecSchool.MoqTest\CibertecSchool.MoqTest.csproj" />
     <ProjectReference Include="..\CibertecSchool.UnitOfWork\CibertecSchool.UnitOfWork.csproj" />
     <ProjectReference Include="..\CibertecSchool.WebApi\CibertecSchool.WebApi.csproj" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 using CibertecSchool.Models;
+using CibertecSchool.MoqTest;
 using CibertecSchool.Repositories.Dapper.School;
 using CibertecSchool.UnitOfWork;
 using CibertecSchool.WebApi.Controllers;
@@ -10,17 +11,17 @@ using Xunit;
 
 namespace CibertecSchool.WebApi.Test
 {
-    public class PersonControllerTest
+    public class PersonControllerMoqTest
     {
         private PersonController _personController;
 
         private readonly IUnitOfWork _unitMocked;
 
-        public PersonControllerTest()
+        public PersonControllerMoqTest()
         {
-            _personController = new PersonController(
-                new SchoolUnitOfWork(ConfigSettings.SchoolConnectionString)
-                );
+            var unitMocked = new UnitOfWorkMocked();
+            _unitMocked = unitMocked.GetInstante();
+            _personController = new PersonController(_unitMocked);
         }
 
         [Fact(DisplayName = "[PersonController] Get List")]
@@ -33,6 +34,7 @@ namespace CibertecSchool.WebApi.Test
 
             var model = result.Value as List<Person>;
             model.Count.Should().BeGreaterThan(0);
+
         }
 
         [Fact(DisplayName = "[PersonController] Insert")]
@@ -40,6 +42,7 @@ namespace CibertecSchool.WebApi.Test
         {
             var person = new Person
             {
+                PersonID = 300,
                 LastName = "Hernandez Lizarzaburu",
                 FirstName = "Oscar Basilio",
                 HireDate = DateTime.Now.Date.AddYears(-30),
@@ -51,6 +54,9 @@ namespace CibertecSchool.WebApi.Test
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
 
+            var model = Convert.ToInt32(result.Value);
+            model.Should().Be(300);
+
 
         }
 
@@ -59,7 +65,7 @@ namespace CibertecSchool.WebApi.Test
         {
             var person = new Person
             {
-                PersonID = 34,
+                PersonID = 5,
                 LastName = "Hernandez Lizarzaburu",
                 FirstName = "Yuliana",
                 HireDate = DateTime.Now.Date.AddYears(-26),
@@ -72,6 +78,15 @@ namespace CibertecSchool.WebApi.Test
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
 
+            var currentPerson = _unitMocked.Persons.GetById(5);
+            currentPerson.Should().NotBeNull();
+            currentPerson.PersonID.Should().Be(person.PersonID);
+            currentPerson.LastName.Should().Be(person.LastName);
+            currentPerson.FirstName.Should().Be(person.FirstName);
+            currentPerson.HireDate.Should().Be(person.HireDate);
+            currentPerson.EnrollmentDate.Should().Be(person.EnrollmentDate);
+
+
         }
 
         [Fact(DisplayName = "[PersonController] Delete")]
@@ -79,13 +94,20 @@ namespace CibertecSchool.WebApi.Test
         {
             var person = new Person
             {
-                PersonID = 15
+                PersonID = 1
             };
 
-                var result = _personController.Delete(person) as OkObjectResult;
+            var result = _personController.Delete(person) as OkObjectResult;
 
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
+
+            var model = Convert.ToBoolean(result.Value);
+            model.Should().BeTrue();
+
+            var currentPerson = _unitMocked.Persons.GetById(1);
+            currentPerson.Should().BeNull();
+
         }
 
         [Fact(DisplayName = "[PersonController] Get By Id")]
@@ -95,6 +117,10 @@ namespace CibertecSchool.WebApi.Test
 
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
+
+            var model = result.Value as Person;
+            model.Should().NotBeNull();
+            model.PersonID.Should().BeGreaterThan(0);
         }
     }
 }

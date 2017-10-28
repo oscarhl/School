@@ -1,4 +1,5 @@
 using CibertecSchool.Models;
+using CibertecSchool.MoqTest;
 using CibertecSchool.Repositories.Dapper.School;
 using CibertecSchool.UnitOfWork;
 using CibertecSchool.WebApi.Controllers;
@@ -18,9 +19,9 @@ namespace CibertecSchool.WebApi.Test
 
         public StudentGradeControllerTest()
         {
-            _studentController = new StudentGradeController(
-                new SchoolUnitOfWork(ConfigSettings.SchoolConnectionString)
-                );
+            var unitMocked = new UnitOfWorkMocked();
+            _unitMocked = unitMocked.GetInstante();
+            _studentController = new StudentGradeController(_unitMocked);
         }
 
         [Fact(DisplayName = "[StudentGradeController] Get List")]
@@ -40,9 +41,10 @@ namespace CibertecSchool.WebApi.Test
         {
             var studentGrade = new StudentGrade
             {
-                 CourseID=5001,
                 StudentID=14,
-                Grade=(decimal)3.5
+                EnrollmentID =14,
+                CourseID = 4,
+                Grade =(decimal)3.5
 
             };
 
@@ -50,6 +52,8 @@ namespace CibertecSchool.WebApi.Test
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
 
+            var model = Convert.ToInt32(result.Value);
+            model.Should().Be(14);
 
         }
 
@@ -58,17 +62,24 @@ namespace CibertecSchool.WebApi.Test
         {
             var studentGrade = new StudentGrade
             {
-             EnrollmentID=20,
-             CourseID=4041,
-             StudentID=14,
-             Grade=(decimal)2.5
-
+                StudentID = 5,
+                EnrollmentID =30,
+                CourseID=8,             
+                Grade=(decimal)2.5
             };
 
             var result = _studentController.Put(studentGrade) as OkObjectResult;
 
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
+
+            var currentStudent = _unitMocked.Students.GetById(5);
+            currentStudent.Should().NotBeNull();
+            currentStudent.StudentID.Should().Be(studentGrade.StudentID);
+            currentStudent.EnrollmentID.Should().Be(studentGrade.EnrollmentID);
+            currentStudent.CourseID.Should().Be(studentGrade.CourseID);
+            currentStudent.Grade.Should().Be(studentGrade.Grade);
+            
 
         }
 
@@ -77,14 +88,20 @@ namespace CibertecSchool.WebApi.Test
         {
             var studentGrade = new StudentGrade
             {
-                EnrollmentID = 20,
-                StudentID = 14
+                StudentID = 10
             };
 
             var result = _studentController.Delete(studentGrade) as OkObjectResult;
 
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
+
+            var model = Convert.ToBoolean(result.Value);
+            model.Should().BeTrue();
+
+            var currentStudent = _unitMocked.Students.GetById(10);
+            currentStudent.Should().BeNull();
+
         }
 
         [Fact(DisplayName = "[StudentGradeController] Get By Id")]
@@ -94,6 +111,10 @@ namespace CibertecSchool.WebApi.Test
 
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
+
+            var model = result.Value as StudentGrade;
+            model.Should().NotBeNull();
+            model.StudentID.Should().BeGreaterThan(0);
         }
     }
 }

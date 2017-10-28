@@ -1,27 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CibertecSchool.Repositories", "CibertecSchool.Repositories\CibertecSchool.Repositories.csproj", "{01337555-7405-4735-A703-A2B7DC6C48C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CibertecSchool.Repositories", "CibertecSchool.Repositories\CibertecSchool.Repositories.csproj", "{01337555-7405-4735-A703-A2B7DC6C48C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CibertecSchool.Models", "CibertecSchool.Models\CibertecSchool.Models.csproj", "{83893CA1-D9AC-4DA7-89C6-2A6772C1075D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CibertecSchool.Models", "CibertecSchool.Models\CibertecSchool.Models.csproj", "{83893CA1-D9AC-4DA7-89C6-2A6772C1075D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CibertecSchool.Repositories.Dapper", "CibertecSchool.Repositories.Dapper\CibertecSchool.Repositories.Dapper.csproj", "{6F12B530-DB24-43CF-926E-27C3D1274D92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CibertecSchool.Repositories.Dapper", "CibertecSchool.Repositories.Dapper\CibertecSchool.Repositories.Dapper.csproj", "{6F12B530-DB24-43CF-926E-27C3D1274D92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CibertecSchool.UnitOfWork", "CibertecSchool.UnitOfWork\CibertecSchool.UnitOfWork.csproj", "{3ED5179B-75AB-41CD-AD8D-943031F507CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CibertecSchool.UnitOfWork", "CibertecSchool.UnitOfWork\CibertecSchool.UnitOfWork.csproj", "{3ED5179B-75AB-41CD-AD8D-943031F507CE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{A5C83005-96AF-4AE1-804B-3577D8328647}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{6161226C-B410-4799-AA69-905BD7D13FA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CibertecSchool.WebApi", "CibertecSchool.WebApi\CibertecSchool.WebApi.csproj", "{BB657CF4-0A2F-4074-A4A6-DD24D1A4A760}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CibertecSchool.WebApi", "CibertecSchool.WebApi\CibertecSchool.WebApi.csproj", "{BB657CF4-0A2F-4074-A4A6-DD24D1A4A760}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{7C841278-EB9F-4809-BB0F-9383A80F7555}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CibertecSchool.WebApi.Test", "CibertecSchool.WebApi.Test\CibertecSchool.WebApi.Test.csproj", "{89F6AD2F-C80F-4668-9CF0-22DB2F819E96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CibertecSchool.WebApi.Test", "CibertecSchool.WebApi.Test\CibertecSchool.WebApi.Test.csproj", "{89F6AD2F-C80F-4668-9CF0-22DB2F819E96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CibertecSchool.MoqTest", "CibertecSchool.MoqTest\CibertecSchool.MoqTest.csproj", "{B70E0494-B625-4CC0-BC83-BB5C8E82FC04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CibertecSchool.MoqTest", "CibertecSchool.MoqTest\CibertecSchool.MoqTest.csproj", "{B70E0494-B625-4CC0-BC83-BB5C8E82FC04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

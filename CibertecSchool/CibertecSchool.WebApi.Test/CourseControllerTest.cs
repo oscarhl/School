@@ -1,4 +1,5 @@
 using CibertecSchool.Models;
+using CibertecSchool.MoqTest;
 using CibertecSchool.Repositories.Dapper.School;
 using CibertecSchool.UnitOfWork;
 using CibertecSchool.WebApi.Controllers;
@@ -18,9 +19,9 @@ namespace CibertecSchool.WebApi.Test
 
         public CourseControllerTest()
         {
-            _courseController = new CourseController(
-                new SchoolUnitOfWork(ConfigSettings.SchoolConnectionString)
-                );
+            var unitMocked = new UnitOfWorkMocked();
+            _unitMocked = unitMocked.GetInstante();
+            _courseController = new CourseController(_unitMocked);
         }
 
         [Fact(DisplayName = "[CourseController] Get List")]
@@ -40,7 +41,7 @@ namespace CibertecSchool.WebApi.Test
         {
             var course = new Course
             {
-                CourseID=5005,
+                CourseID=51,
                 Title="Ingeniera de Software",
                 Credits=3,
                 DepartmentID=1
@@ -50,15 +51,19 @@ namespace CibertecSchool.WebApi.Test
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
 
-          
+            var model = Convert.ToInt32(result.Value);
+            model.Should().Be(51);
+
         }
 
         [Fact(DisplayName = "[CourseController] Update")]
         public void Update_Customer_Test()
         {
+            var currentCourseprueba = _unitMocked.Courses.GetById(5);
+
             var course = new Course
             {
-                CourseID = 5001,
+                CourseID = 5,
                 Title = "Algebra II",
                 Credits = 4,
                 DepartmentID = 4
@@ -67,8 +72,16 @@ namespace CibertecSchool.WebApi.Test
             var result = _courseController.Put(course) as OkObjectResult;
 
             result.Should().NotBeNull();
-            result.Value.Should().NotBeNull();      
-            
+            result.Value.Should().NotBeNull();
+
+            var currentCourse = _unitMocked.Courses.GetById(5);
+            currentCourse.Should().NotBeNull();
+            currentCourse.CourseID.Should().Be(course.CourseID);
+            currentCourse.Title.Should().Be(course.Title);
+            currentCourse.Credits.Should().Be(course.Credits);
+            currentCourse.DepartmentID.Should().Be(course.DepartmentID);
+           
+
         }
 
         [Fact(DisplayName = "[CourseController] Delete")]
@@ -76,22 +89,32 @@ namespace CibertecSchool.WebApi.Test
         {
             var course = new Course
             {
-                CourseID = 1050               
+                CourseID = 1               
             };
 
             var result = _courseController.Delete(course) as OkObjectResult;
 
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
+
+            var model = Convert.ToBoolean(result.Value);
+            model.Should().BeTrue();
+
+            var currentCourse = _unitMocked.Courses.GetById(1);
+            currentCourse.Should().BeNull();
         }
 
         [Fact(DisplayName = "[CourseController] Get By Id")]
         public void GetById_Course_Test()
         {
-            var result = _courseController.GetById(5001) as OkObjectResult;
+            var result = _courseController.GetById(5) as OkObjectResult;
 
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
+
+            var model = result.Value as Course;
+            model.Should().NotBeNull();
+            model.CourseID.Should().BeGreaterThan(0);
         }
     }
 }
